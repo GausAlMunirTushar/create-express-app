@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+import { createCEAConfig } from './src/config/configCreator';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -91,6 +92,13 @@ export async function run(projectName) {
 	try {
 		// Copy the selected template
 		fs.copySync(templateDir, targetDir);
+
+		// Write dynamic .cea-config.json file
+		await createCEAConfig(targetDir, {
+			language,
+			database,
+		});
+
 		console.log(chalk.green(`✅ Project created at ${targetDir}\n`));
 
 		// Step 5: Initialize Git
