@@ -7,6 +7,7 @@ import { execSync } from 'child_process';
 import figlet from 'figlet';
 import ora from 'ora';
 import { createCEAConfig } from './src/config/configCreator';
+import { gitignoreContent } from './src/config/gitignoreTemplate.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +20,21 @@ export async function run(projectName) {
 
 	// Check if project folder exists
 	if (!isCurrentDir && fs.existsSync(targetDir)) {
-		console.log(chalk.red(`Folder "${projectName}" already exists.`));
-		return;
+		const { overwrite } = await inquirer.prompt([
+			{
+				type: 'confirm',
+				name: 'overwrite',
+				message: `The folder "${projectName}" already exists. Do you want to overwrite it?`,
+				default: false,
+			},
+		]);
+		if (!overwrite) {
+			console.log(chalk.yellow('Setup cancelled.'));
+			return;
+		}
+		fs.removeSync(targetDir);
 	}
+
 	console.clear();
 	console.log(
 		chalk.magentaBright(
@@ -113,7 +126,7 @@ export async function run(projectName) {
 		const copySpinner = ora('Copying template files...').start();
 		try {
 			fs.copySync(templateDir, targetDir);
-			copySpinner.succeed('Template files copied successfully.');
+			copySpinner.succeed('Template files copied successfully.').stop();
 		} catch (err) {
 			copySpinner.fail('Failed to copy template files.');
 			throw err;
@@ -156,54 +169,43 @@ export async function run(projectName) {
 		]);
 
 		if (initGit) {
-			execSync('git init', { cwd: targetDir, stdio: 'inherit' });
-			console.log(chalk.green('Git repository initialized.\n'));
+			const gitSpinner = ora('Initializing Git repository...').start();
+			try {
+				execSync('git init', { cwd: targetDir, stdio: 'ignore' });
+				gitSpinner.succeed('Git repository initialized.');
+			} catch {
+				gitSpinner.fail('Failed to initialize Git repository.');
+			}
 		}
+
 		// Step 6: Add .gitignore if it doesn't exist
 		const gitignorePath = path.join(targetDir, '.gitignore');
 		if (!fs.existsSync(gitignorePath)) {
-			// Content to add to the .gitignore file
-			const gitignoreContent = `
-# Node modules
-node_modules/
-				
-# Logs
-logs/
-*.log
-npm-debug.log*
-				
-# .env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-				
-# OS files
-.DS_Store
-Thumbs.db `;
-
-			fs.writeFileSync(gitignorePath, gitignoreContent.trim());
+			fs.writeFileSync(gitignorePath, (gitignoreContent || '').trim());
+			console.log(chalk.green('.gitignore file created.'));
 		}
 
 		// Display next steps
-		console.log(chalk.green.bold(`Project Setup Complete!`));
-		console.log(chalk.yellowBright(`\nNext Steps:`));
-		console.log(chalk.blue(`Navigate to your project folder:`));
+		console.log(chalk.green.bold('Project setup complete.'));
+		console.log(chalk.yellowBright('\nNext steps:'));
+		console.log(chalk.blue('1. Navigate to your project folder:'));
 		console.log(chalk.cyan(`   cd ${isCurrentDir ? '.' : projectName}`));
-		console.log(chalk.blue(`Install dependencies:`));
-		console.log(chalk.cyan(`   npm install`));
-		console.log(chalk.blue(`Start the development server:`));
-		console.log(chalk.cyan(`   npm run dev\n`));
-		console.log(chalk.magenta.bold(`Happy Coding! 🚀`));
+		console.log(chalk.blue('2. Install dependencies:'));
+		console.log(chalk.cyan('   npm install'));
+		console.log(chalk.blue('3. Start the development server:'));
+		console.log(chalk.cyan('   npm run dev\n'));
+		console.log(chalk.magenta.bold('Happy coding!'));
+
 		// Summary Table
+		const ormName = database.split('-')[1]
+			? database.split('-')[1].charAt(0).toUpperCase() +
+				database.split('-')[1].slice(1)
+			: 'None';
+
 		console.table({
 			Language: language,
 			Database: databaseType,
-			ORM: database.split('-')[1]
-				? database.split('-')[1].charAt(0).toUpperCase() +
-					database.split('-')[1].slice(1)
-				: 'None',
+			ORM_or_ODM: ormName,
 			Path: targetDir,
 		});
 	} catch (error) {
