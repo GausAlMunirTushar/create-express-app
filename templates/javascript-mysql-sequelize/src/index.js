@@ -19,10 +19,10 @@ process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
 db.authenticate()
-  .then(() => {
-    console.log("Database Connected");
-    server.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => console.log(err));
+	.then(() => {
+		console.log('Database Connected');
+		server.listen(PORT, () => {
+			console.log(`🚀 Server running on http://localhost:${PORT}`);
+		});
+	})
+	.catch((err) => console.log(err));

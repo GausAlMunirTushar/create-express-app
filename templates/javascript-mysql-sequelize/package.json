@@ -16,7 +16,7 @@
 		"express": "^4.18.2",
 		"helmet": "^5.0.2",
 		"mysql2": "^3.11.3",
-    "sequelize": "^6.37.3",
+		"sequelize": "^6.37.3",
 		"morgan": "^1.10.0"
 	},
 	"devDependencies": {
