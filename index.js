@@ -4,6 +4,8 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+import figlet from 'figlet';
+import ora from 'ora';
 import { createCEAConfig } from './src/config/configCreator';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,6 +22,19 @@ export async function run(projectName) {
 		console.log(chalk.red(`Folder "${projectName}" already exists.`));
 		return;
 	}
+	console.clear();
+	console.log(
+		chalk.magentaBright(
+			figlet.textSync('Create Express App', {
+				horizontalLayout: 'fitted',
+			}),
+		),
+	);
+	console.log(
+		chalk.cyan(
+			'✨ A simple and powerful Express.js project generator ✨\n',
+		),
+	);
 
 	console.log(chalk.cyan.bold(`\n🚀 Setting up your project...\n`));
 
@@ -47,44 +62,51 @@ export async function run(projectName) {
 	]);
 
 	if (databaseType === 'NoSQL (MongoDB)') {
-		// MongoDB selected, default ORM is Mongoose
-		database = 'mongodb-mongoose';
-	} else if (databaseType === 'SQL') {
-		// Step 3: Choose SQL Database
-		const { sqlDatabase } = await inquirer.prompt([
+		const { odm } = await inquirer.prompt([
 			{
 				type: 'list',
-				name: 'sqlDatabase',
-				message: 'Choose an SQL database:',
-				choices: ['PostgreSQL', 'MySQL'],
+				name: 'odm',
+				message: 'Choose an ODM for MongoDB:',
+				choices: ['Mongoose', 'Prisma'],
+				default: 'Mongoose',
 			},
 		]);
 
-		// Step 4: Choose ORM
+		database = odm.includes('Mongoose')
+			? 'mongodb-mongoose'
+			: 'mongodb-prisma';
+	} else if (databaseType === 'SQL') {
 		const { orm } = await inquirer.prompt([
 			{
 				type: 'list',
 				name: 'orm',
 				message: 'Choose an ORM:',
-				choices: ['Sequelize', 'TypeORM'],
+				choices: ['Sequelize', 'TypeORM', 'Prisma'],
 			},
 		]);
 
-		database = `${sqlDatabase.toLowerCase()}-${orm.toLowerCase()}`;
+		database = `sql-${orm.toLowerCase()}`;
 	}
+	// Determine the correct template folder path (nested structure)
+	const templateDir = path.join(
+		__dirname,
+		'templates',
+		language.toLowerCase(),
+		database === 'none' ? 'none' : database,
+	);
 
-	// Determine the correct template folder
-	const templateFolder =
-		database === 'none'
-			? `${language.toLowerCase()}-none` // For No Database, JavaScript or TypeScript
-			: `${language.toLowerCase()}-${database}`; // For Database options
-
-	const templateDir = path.join(__dirname, 'templates', templateFolder);
+	console.log(
+		chalk.gray(
+			`📁 Using template: templates/${language.toLowerCase()}/${database}`,
+		),
+	);
 
 	// Ensure template exists
 	if (!fs.existsSync(templateDir)) {
 		console.log(
-			chalk.red(`❌ Template for ${templateFolder} does not exist.`),
+			chalk.red(
+				`❌ Template for ${language}/${database} does not exist.`,
+			),
 		);
 		return;
 	}
@@ -145,13 +167,20 @@ Thumbs.db `;
 		// Display next steps
 		console.log(chalk.green.bold(`🎉 Project Setup Complete!`));
 		console.log(chalk.yellowBright(`\nNext Steps:`));
-		console.log(chalk.blue(`➡️ Navigate to your project folder:`));
+		console.log(chalk.blue(`Navigate to your project folder:`));
 		console.log(chalk.cyan(`   cd ${isCurrentDir ? '.' : projectName}`));
 		console.log(chalk.blue(`📦 Install dependencies:`));
 		console.log(chalk.cyan(`   npm install`));
 		console.log(chalk.blue(`🚀 Start the development server:`));
 		console.log(chalk.cyan(`   npm run dev\n`));
 		console.log(chalk.magenta.bold(`Happy Coding! 🚀`));
+		// 🧾 Summary Table
+		console.table({
+			Language: language,
+			Database: databaseType,
+			ORM_or_ODM: database.split('-')[1] || 'None',
+			Path: targetDir,
+		});
 	} catch (error) {
 		console.error(chalk.red('❌ Error copying template files:'), error);
 	}
