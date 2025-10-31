@@ -8,6 +8,7 @@ import figlet from 'figlet';
 import ora from 'ora';
 import { createCEAConfig } from './src/config/configCreator';
 import { gitignoreContent } from './src/config/gitignoreTemplate.js';
+import { copyCommonFiles } from './src/utils/copyUtils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -122,6 +123,7 @@ export async function run(projectName) {
 	}
 
 	try {
+		copyCommonFiles(__dirname, targetDir, { overwrite: true });
 		// Copy the selected template
 		const copySpinner = ora('Copying template files...').start();
 		try {
