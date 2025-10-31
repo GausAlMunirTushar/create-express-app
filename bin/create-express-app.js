@@ -7,9 +7,7 @@ const program = new Command();
 
 program
 	.name('create-ex-app')
-	.description(
-		'CLI to generate Express.js projects in JavaScript or TypeScript',
-	)
+	.description('Generate Express.js apps in JavaScript or TypeScript')
 	.version('1.0.1');
 
 program
