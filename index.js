@@ -47,7 +47,9 @@ export async function run(projectName) {
 	console.log(
 		chalk.gray('✨ Create Express App • Professional scaffolder ✨'),
 	);
-	console.log(chalk.gray('-------------------------------------------\n'));
+	console.log(
+		chalk.gray('-----------------------------------------------\n'),
+	);
 
 	console.log(chalk.cyan.bold(`\nSetting up your project...\n`));
 
@@ -89,12 +91,16 @@ export async function run(projectName) {
 			? 'mongodb-mongoose'
 			: 'mongodb-prisma';
 	} else if (databaseType === 'SQL') {
+		let sqlChoices = ['Sequelize', 'Prisma'];
+		if (language === 'TypeScript') {
+			sqlChoices = ['Sequelize', 'TypeORM', 'Prisma'];
+		}
 		const { orm } = await inquirer.prompt([
 			{
 				type: 'list',
 				name: 'orm',
 				message: 'Choose an ORM:',
-				choices: ['Sequelize', 'TypeORM', 'Prisma'],
+				choices: sqlChoices,
 			},
 		]);
 
