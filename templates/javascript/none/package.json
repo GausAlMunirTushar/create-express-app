@@ -20,18 +20,5 @@
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.22"
-	},
-	"engines": {
-		"node": ">=16.0.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/GausAlMunirTushar/create-express-app.git"
-	},
-	"author": "Your Name",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/GausAlMunirTushar/create-express-app/issues"
-	},
-	"homepage": "https://github.com/GausAlMunirTushar/create-express-app"
+	}
 }
