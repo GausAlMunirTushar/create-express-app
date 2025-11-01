@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import figlet from 'figlet';
 import ora from 'ora';
-import { createCEAConfig } from './src/config/configCreator';
+import { createCEAConfig } from './src/config/configCreator.js';
 import { gitignoreContent } from './src/config/gitignoreTemplate.js';
 import { copyCommonFiles } from './src/utils/copyUtils.js';
 
