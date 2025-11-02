@@ -1,0 +1,45 @@
+{
+	"name": "my-app",
+	"version": "1.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "tsx watch src/server.ts",
+		"build": "tsc -p tsconfig.json",
+		"start": "node dist/server.js",
+		"typeorm": "tsx node --no-warnings ./node_modules/typeorm/cli.js -d src/config/data-source.ts",
+		"migration:generate": "npm run typeorm -- migration:generate ./src/migrations/auto",
+		"migration:run": "npm run typeorm -- migration:run",
+		"migration:revert": "npm run typeorm -- migration:revert",
+		"lint": "eslint . --ext .ts"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"helmet": "^7.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"pino": "^9.3.2",
+		"pino-http": "^10.3.0",
+		"pg": "^8.13.1",
+		"reflect-metadata": "^0.2.2",
+		"typeorm": "^0.3.20",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.6",
+		"eslint": "^9.13.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.31.0",
+		"prettier": "^3.3.3",
+		"tslib": "^2.8.1",
+		"ts-node": "^10.9.2",
+		"tsconfig-paths": "^4.2.0",
+		"tsx": "^4.19.1",
+		"typescript": "^5.6.3"
+	}
+}
