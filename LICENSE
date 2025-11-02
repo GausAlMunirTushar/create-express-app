@@ -1,0 +1,35 @@
+# Modified MIT License – Create Express App CLI
+
+Copyright (c) 2025 Create Express App
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights  
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
+copies of the Software, and to permit persons to whom the Software is  
+furnished to do so, **subject to the following conditions:**
+
+1. The above copyright notice and this permission notice shall be included  
+   in all copies or substantial portions of the Software.
+
+2. **The name "Create Express App", its logo, CLI name, or related branding**  
+   may **not** be used to endorse, promote, or distribute any derivative or  
+   modified version of this Software without prior written permission from  
+   the original authors.
+
+3. Derivative versions of this Software must **not be misrepresented** as the  
+   official "Create Express App" or claim any form of association, sponsorship,  
+   or partnership with the original project.
+
+4. If you modify or redistribute this Software, you must clearly state that  
+   your version is a fork or derivative work and must include attribution to  
+   the original project:
+    > Based on Create Express App (https://github.com/gausalmunirtushar/create-express-app)
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER  
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  
+SOFTWARE.
