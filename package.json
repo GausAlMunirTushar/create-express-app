@@ -29,7 +29,10 @@
 		"Express",
 		"App",
 		"CLI",
-		"Node.js"
+		"Node.js",
+		"Create Express App",
+		"create-ex-app",
+		"Express App"
 	],
 	"author": "Gaus Al Munir Tushar",
 	"license": "MIT",
