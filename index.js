@@ -82,7 +82,7 @@ export async function run(projectName) {
 				type: 'list',
 				name: 'odm',
 				message: 'Choose an ODM for MongoDB:',
-				choices: ['Mongoose', 'Prisma'],
+				choices: ['Mongoose'],
 				default: 'Mongoose',
 			},
 		]);
@@ -91,9 +91,9 @@ export async function run(projectName) {
 			? 'mongodb-mongoose'
 			: 'mongodb-prisma';
 	} else if (databaseType === 'SQL') {
-		let sqlChoices = ['Sequelize', 'Prisma'];
+		let sqlChoices = ['Sequelize'];
 		if (language === 'TypeScript') {
-			sqlChoices = ['Sequelize', 'TypeORM', 'Prisma'];
+			sqlChoices = ['Sequelize', 'TypeORM'];
 		}
 		const { orm } = await inquirer.prompt([
 			{
