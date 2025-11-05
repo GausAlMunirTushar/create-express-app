@@ -1,26 +1,14 @@
 import mongoose from 'mongoose';
+import config from './environment';
+import logger from '@/utils/logger';
 
-const connectDatabase = async (): Promise<void> => {
+export const connectDatabase = async (): Promise<void> => {
 	try {
-		const mongoUri = process.env.MONGO_URI;
-
-		if (!mongoUri) {
-			throw new Error(
-				'MONGO_URI is missing in the environment variables',
-			);
-		}
-
-		await mongoose.connect(mongoUri);
-
-		console.log('MongoDB Connected');
-	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error('Database connection failed:', error.message);
-		} else {
-			console.error('Unknown error occurred during database connection');
-		}
+		mongoose.set('strictQuery', true);
+		await mongoose.connect(config.mongodbUri);
+		logger.info('MongoDB connected successfully');
+	} catch (err) {
+		logger.error('MongoDB connection failed', err as any);
 		process.exit(1);
 	}
 };
-
-export default connectDatabase;

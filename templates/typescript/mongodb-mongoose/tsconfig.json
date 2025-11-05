@@ -1,21 +1,26 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
-		"module": "CommonJS",
+		"target": "ES2022",
+		"module": "commonjs",
+		"lib": ["ES2022"],
 		"outDir": "./dist",
 		"rootDir": "./src",
-		"strict": true,
 		"esModuleInterop": true,
-		"baseUrl": "./src",
+		"resolveJsonModule": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+
+		"sourceMap": true,
+		"removeComments": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
 		"paths": {
-			"@app/*": ["app/*"],
-			"@config/*": ["config/*"],
-			"@controllers/*": ["controllers/*"],
-			"@middleware/*": ["middleware/*"],
-			"@models/*": ["models/*"],
-			"@routes/*": ["routes/*"],
-			"@services/*": ["services/*"],
-			"@utils/*": ["utils/*"]
+			"@/*": ["./src/*"]
 		}
-	}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
 }
