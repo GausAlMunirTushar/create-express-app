@@ -1,19 +1,18 @@
-import winston from 'winston';
+import pino from 'pino';
+import config from '@/config/environment';
 
-const logger = winston.createLogger({
-	level: 'info',
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.combine(
-				winston.format.colorize(),
-				winston.format.simple(),
-			),
-		}),
-		new winston.transports.File({
-			filename: 'server.log',
-			level: 'info',
-		}),
-	],
+const logger = pino({
+	level: config.logLevel,
+	transport: !config.isProduction
+		? {
+				target: 'pino-pretty',
+				options: {
+					colorize: true,
+					translateTime: 'SYS:yyyy-mm-dd HH:MM:ss',
+					ignore: 'pid,hostname',
+				},
+			}
+		: undefined,
 });
 
-export { logger };
+export default logger;
