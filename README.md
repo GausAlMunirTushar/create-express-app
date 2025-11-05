@@ -14,7 +14,7 @@
   <a href="./LICENSE.md" target="_blank">
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge&color=97CA00" alt="License: MIT" />
   </a>
-  <a href="https://github.com/gausalmunirtushar/create-ex-app/discussions" target="_blank">
+  <a href="https://github.com/gausalmunirtushar/create-express-app/discussions" target="_blank">
     <img src="https://img.shields.io/badge/Join_the_Community-000000?style=for-the-badge&logo=github" alt="Join the community" />
   </a>
 </p>
