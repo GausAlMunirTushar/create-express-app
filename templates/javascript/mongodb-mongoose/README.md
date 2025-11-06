@@ -11,9 +11,9 @@ npm install
 # or
 yarn
 # or
-pnpm
+pnpm install
 # or
-bun
+bun install
 ```
 
 **First, run the development server:**:
