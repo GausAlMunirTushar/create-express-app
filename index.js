@@ -72,7 +72,7 @@ export async function run(projectName) {
 			type: 'list',
 			name: 'databaseType',
 			message: 'Choose a database type:',
-			choices: ['No Database', 'NoSQL (MongoDB)', 'SQL'],
+			choices: ['No Database', 'NoSQL (MongoDB)'],
 		},
 	]);
 
