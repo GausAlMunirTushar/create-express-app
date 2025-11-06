@@ -1,7 +1,7 @@
 {
 	"name": "create-ex-app",
-	"version": "1.3.0",
-	"description": "CLI tool to generate Express.js projects",
+	"version": "1.4.0",
+	"description": "Create Express App is a CLI tool that simplifies the creation of Express.js applications",
 	"type": "module",
 	"files": [
 		"*",
@@ -32,7 +32,11 @@
 		"Node.js",
 		"Create Express App",
 		"create-ex-app",
-		"Express App"
+		"Express App",
+		"expressjs",
+		"boilderplate",
+		"nodejs boilerplate",
+		"expressjs boilerplate"
 	],
 	"author": "Gaus Al Munir Tushar",
 	"license": "MIT",
